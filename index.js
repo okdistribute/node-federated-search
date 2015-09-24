@@ -13,7 +13,7 @@ module.exports = function (query, searchers, cb) {
         version: searcher.version
       }
       res.data = data
-      next(res)
+      next(null, res)
     })
     streams.push(stream)
   }
