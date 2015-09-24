@@ -2,6 +2,14 @@ var parallel = require('run-parallel')
 var MultiStream = require('multistream')
 
 module.exports = function (query, searchers, cb) {
+  var streams = []
+  for (var i in searchers) {
+    streams.push(searchers.stream(query))
+  }
+  return MultiStream(streams)
+}
+
+module.exports.search = function (query, searchers, cb) {
   var tasks = []
   for (var i in searchers) {
     (function (i) {
@@ -19,12 +27,4 @@ module.exports = function (query, searchers, cb) {
     if (err) return cb(err)
     cb(null, results)
   })
-}
-
-module.exports.stream = function (query, searchers, cb) {
-  var streams = []
-  for (var i in searchers) {
-    streams.push(searchers.stream(query))
-  }
-  return MultiStream(streams)
 }
