@@ -1,6 +1,6 @@
 # node-federated-search
 
-Federated search for Node.js. This tool assumes you have assembled node modules that implement the [abstract-search](http://github/karissa/abstract-search) api.
+Federated search for Node.js. This tool assumes you have assembled node modules that implement the [abstract-search](http://github.com/karissa/abstract-search) api.
 
 ```
 npm install federated-search
