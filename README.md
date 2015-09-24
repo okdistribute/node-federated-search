@@ -38,8 +38,6 @@ Prints (one for each calback)
 ```json
 {
   "searcher": {"name": "ckan", "url": "www.datahub.io", "version": "latest"},
-  "result": {
-    data...
-  }
+  "data": data...
 }
 ```

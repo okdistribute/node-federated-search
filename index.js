@@ -4,27 +4,18 @@ var MultiStream = require('multistream')
 module.exports = function (query, searchers, cb) {
   var streams = []
   for (var i in searchers) {
-    streams.push(searchers.stream(query))
+    var searcher = searchers[i]
+    var stream = searcher(query).pipe(through.obj(function (data, enc, next) {
+      var res = {}
+      res.searcher = {
+        name: searcher.name,
+        url: searcher.url,
+        version: searcher.version
+      }
+      res.data = data
+      next(res)
+    })
+    streams.push(stream)
   }
   return MultiStream(streams)
-}
-
-module.exports.search = function (query, searchers, cb) {
-  var tasks = []
-  for (var i in searchers) {
-    (function (i) {
-      tasks.push(function (cb) {
-        var searcher = searchers[i]
-        searcher.search(query, function (err, results) {
-          if (err) return cb(err)
-          var data = {searcher: searcher.name, results: results}
-          cb(null, data)
-        })
-      })
-    })(i)
-  }
-  parallel(tasks, function (err, results) {
-    if (err) return cb(err)
-    cb(null, results)
-  })
 }
