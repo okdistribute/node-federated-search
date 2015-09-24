@@ -6,23 +6,24 @@ Federated search for Node.js. This tool assumes you have assembled node modules 
 npm install federated-search
 ```
 
-## Examples
+## Example
+
 ```js
 var fedsearch = require('federated-search')
 
 var query = {
   field1: 'hello',
   field2: 'world'
-} // something they can all understand
+}
 
 var searchers = [
-  require('ckan-searcher'),
-  require('github-searcher'),
-  require('figshare-searcher')
+  require('ckan-searcher')('www.datahub.io'),
+  require('github-searcher')('www.github.com'),
+  require('figshare-searcher')('www.figshare.com')
 ]
 ```
 
-Use the streaming API. It's better. Trust me.
+Use the streaming API.
 
 ```js
 var stream = fedsearch(query, searchers)
@@ -32,10 +33,13 @@ stream.on('data', function (result) {
 stream.destroy() // will stop fetching data.
 ```
 
-If you really want, you can search manually. This may or may not work or only return the first few pages, depending on how the searchers are implemented. No guarantees.
+Prints (one for each calback)
 
-```js
-fedsearch.search({query: 'some data'}, searchers, function (err, results) {
-  console.log(results)
-})
+```json
+{
+  "searcher": {"name": "ckan", "url": "www.datahub.io", "version": "latest"},
+  "result": {
+    data...
+  }
+}
 ```
