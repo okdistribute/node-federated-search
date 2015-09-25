@@ -1,6 +1,6 @@
 {
   "name": "federated-search",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Federated search for abstract-searcher",
   "main": "index.js",
   "scripts": {
