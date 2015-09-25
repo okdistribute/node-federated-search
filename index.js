@@ -1,5 +1,6 @@
 var parallel = require('run-parallel')
 var MultiStream = require('multistream')
+var through = require('through2')
 
 module.exports = function (query, searchers, cb) {
   var streams = []
