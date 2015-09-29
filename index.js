@@ -18,5 +18,5 @@ module.exports = function (query, searchers, cb) {
     }))
     streams.push(stream)
   }
-  return MultiStream(streams)
+  return MultiStream.obj(streams)
 }
