@@ -15,7 +15,7 @@ module.exports = function (query, searchers, cb) {
       }
       res.data = data
       next(null, res)
-    })
+    }))
     streams.push(stream)
   }
   return MultiStream(streams)
